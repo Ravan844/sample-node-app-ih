@@ -21,8 +21,10 @@ jest.useFakeTimers();
 
 describe('Client-side JavaScript Tests', () => {
   let mockHTML;
+  let consoleLogSpy;
   
   beforeEach(() => {
+     consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     // Create a mock HTML structure
     mockHTML = `
       <!DOCTYPE html>
@@ -74,6 +76,7 @@ describe('Client-side JavaScript Tests', () => {
   });
 
   afterEach(() => {
+     consoleLogSpy.mockRestore();
     // Clean up
     document.documentElement.innerHTML = '';
   });
